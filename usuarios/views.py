@@ -1,6 +1,25 @@
 from django.shortcuts import redirect, render
+from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+
+def login_view(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        senha = request.POST.get('senha')
+        
+        user = auth.authenticate(request, username=username, password=senha)
+
+        if user:
+            auth.login(request, user)
+            return redirect('pacientes/home')
+        
+        messages.add_message(request, messages.constants.ERROR, 'Usuário ou senha incorretos.')
+        return redirect('/usuarios/login')
+
 
 def cadastro(request):
     if request.method == 'GET':
