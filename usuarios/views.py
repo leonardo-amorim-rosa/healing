@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 
+def sair(request):
+    auth.logout(request)
+    return redirect('/usuarios/login')
+
+
 def login_view(request):
     if request.method == 'GET':
         return render(request, 'login.html')
@@ -53,6 +58,7 @@ def cadastro(request):
             )
 
             return redirect('/usuarios/login')
+        
         except Exception: 
             messages.add_message(request, messages.constants.ERROR, 'Não foi possível criar o usuário.')
             return redirect('/usuarios/cadastro')
