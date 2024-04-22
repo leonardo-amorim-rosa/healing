@@ -20,7 +20,7 @@ def login_view(request):
 
         if user:
             auth.login(request, user)
-            return redirect('pacientes/home')
+            return redirect('/pacientes/home')
         
         messages.add_message(request, messages.constants.ERROR, 'Usuário ou senha incorretos.')
         return redirect('/usuarios/login')
